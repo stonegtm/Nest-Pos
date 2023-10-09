@@ -14,6 +14,11 @@ export const MESSAGE = {
 
   //CONFIRM
 
+
+  //DELETE
+  DELETE_SUCCESS: "ลบข้อมูลสำเร็จแล้ว",
+  CANT_DELETE: "ลบข้อมูลไม่สำเร็จแล้ว",
+
   //ERROR
   NET_ERROR: 'ไม่สามารถเชื่อมต่อได้ กรุณาลองใหม่อีกครั้ง',
   ERROR_SAVE: 'ไม่สามารถบันทึกข้อมูลได้',

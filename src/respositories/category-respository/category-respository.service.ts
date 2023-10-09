@@ -29,4 +29,8 @@ export class CategoryRepositoryService {
         const category = await this.categoryRepository.find();
         return category
     }
+    async delete(id: string) {
+        const delete_category = await this.categoryRepository.delete(id);
+        return delete_category
+    }
 }

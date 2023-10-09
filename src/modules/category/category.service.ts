@@ -3,6 +3,7 @@ import { RESULT } from '../../constants';
 import { MESSAGE } from '../../constants/messages';
 import { response } from '../../shared/response';
 import { AddCategoryService } from '../../usecases/category/add-category.service';
+import { DeleteCategoryService } from '../../usecases/category/delete-category.service';
 import { FindAllCategoryService } from '../../usecases/category/find-all-category.service';
 import { UpdateCategoryService } from '../../usecases/category/update-category.service';
 import { CategoryDto } from './dto/category.dto';
@@ -12,7 +13,8 @@ export class CategoryService {
     constructor(
         private readonly addCategoryService: AddCategoryService,
         private readonly updateCategoryService: UpdateCategoryService,
-        private readonly findAllCategoryService: FindAllCategoryService
+        private readonly findAllCategoryService: FindAllCategoryService,
+        private readonly deleteCategoryService: DeleteCategoryService
     ) { }
     async findAll() {
         try {
@@ -20,7 +22,7 @@ export class CategoryService {
             if (find_category_all.length > 0) {
                 return response(RESULT.TRUE, HttpStatus.OK, MESSAGE.SUCCESS, find_category_all);
             } else {
-                return response(RESULT.FALSE, HttpStatus.BAD_REQUEST, MESSAGE.ERROR_SAVE);
+                return response(RESULT.FALSE, HttpStatus.BAD_REQUEST, MESSAGE.DATA_EMPTY);
             }
         } catch (error) {
             return response(
@@ -34,6 +36,7 @@ export class CategoryService {
     }
     async create(category: CategoryDto) {
         try {
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>", category)
             const result_create_category = await this.addCategoryService.execute(category)
             if (result_create_category.id) {
                 return response(RESULT.TRUE, HttpStatus.CREATED, MESSAGE.SUCCESS);
@@ -67,6 +70,18 @@ export class CategoryService {
                 '',
                 error,
             );
+        }
+    }
+    async delete(id: string) {
+        try {
+            const resualt_delete_category = await this.deleteCategoryService.execute(id)
+            if (resualt_delete_category) {
+                return response(RESULT.TRUE, HttpStatus.OK, MESSAGE.DELETE_SUCCESS);
+            } else {
+                return response(RESULT.FALSE, HttpStatus.BAD_REQUEST, MESSAGE.CANT_DELETE);
+            }
+        } catch (error) {
+
         }
     }
 }

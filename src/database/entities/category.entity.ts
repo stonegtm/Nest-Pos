@@ -1,16 +1,19 @@
-import { Column, CreateDateColumn, Entity } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany } from 'typeorm';
 import { DefaultEntity } from './default.entity';
+import { ProductEntity } from './product.entity';
 @Entity({
     name: 'category',
 })
 export class CategoryEntity extends DefaultEntity {
-    @Column({ unique: true })
+    @Column()
     name: string;
 
     @Column()
-    description: string;
+    description?: string;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
 
+    @OneToMany(() => ProductEntity, (Column) => Column.category_id)
+    product?: ProductEntity[];
 }
