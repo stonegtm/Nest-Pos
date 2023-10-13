@@ -14,10 +14,11 @@ export const MESSAGE = {
 
   //CONFIRM
 
-
+  UPDATE_STOCK: 'เพิ่มสินค้าใน Stock เรียบร้อยแล้ว',
+  UPDATE_STOCK_FAILED: 'เพิ่มสินค้าใน Stock ไม่สำเร็จ',
   //DELETE
-  DELETE_SUCCESS: "ลบข้อมูลสำเร็จแล้ว",
-  CANT_DELETE: "ลบข้อมูลไม่สำเร็จแล้ว",
+  DELETE_SUCCESS: 'ลบข้อมูลสำเร็จแล้ว',
+  CANT_DELETE: 'ลบข้อมูลไม่สำเร็จแล้ว',
 
   //ERROR
   NET_ERROR: 'ไม่สามารถเชื่อมต่อได้ กรุณาลองใหม่อีกครั้ง',
@@ -39,6 +40,6 @@ export const MESSAGE = {
   UPDATE_CATEGORY: 'แก้ไขหมวดหมู่สินค้า',
   CREATE_PRODUCT: 'สร้างสินค้า',
   UPDATE_PRODUCT: 'แก้ไขสินค้า',
-  CREATE_SOUVENIR: "สร้างของสมนาคุณ",
-  UPDATE_SOUVENIR: "แก้ไขของสมนาคุณ"
+  CREATE_SOUVENIR: 'สร้างของสมนาคุณ',
+  UPDATE_SOUVENIR: 'แก้ไขของสมนาคุณ',
 };

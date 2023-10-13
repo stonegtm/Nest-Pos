@@ -16,3 +16,8 @@ export class ProductDto {
   @ApiProperty()
   image_delete?: any;
 }
+
+export class ProductUpdateStockDto {
+  @ApiProperty({ type: String, example: `xxxxx` })
+  data_stock: string;
+}

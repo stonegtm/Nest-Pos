@@ -7,7 +7,8 @@ import { DeleteProductService } from '../../usecases/product/delete-category.ser
 import { FindAllProductService } from '../../usecases/product/find-all-product.service';
 import { FindOneProductService } from '../../usecases/product/find-one-product.service';
 import { UpdateProductService } from '../../usecases/product/update-product.service';
-import { ProductDto } from './dto/product.dto';
+import { UpdateStockService } from '../../usecases/product/update-stock.service';
+import { ProductDto, ProductUpdateStockDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductService {
@@ -17,6 +18,7 @@ export class ProductService {
     private readonly findOneProductService: FindOneProductService,
     private readonly updateProductService: UpdateProductService,
     private readonly deleteProductService: DeleteProductService,
+    private readonly updateStockService: UpdateStockService,
   ) {}
   async create(files: Array<Express.Multer.File>, product: ProductDto) {
     try {
@@ -143,5 +145,26 @@ export class ProductService {
         );
       }
     } catch (error) {}
+  }
+  async updateStock(body: ProductUpdateStockDto) {
+    try {
+      const resulat_update_stock: any =
+        await this.updateStockService.execute(body);
+      if (resulat_update_stock.status) {
+        return response(RESULT.TRUE, HttpStatus.OK, MESSAGE.UPDATE_STOCK);
+      } else {
+        return response(
+          RESULT.FALSE,
+          HttpStatus.BAD_REQUEST,
+          MESSAGE.UPDATE_STOCK_FAILED,
+        );
+      }
+    } catch (error) {
+      return response(
+        RESULT.FALSE,
+        HttpStatus.BAD_REQUEST,
+        MESSAGE.CANT_DELETE,
+      );
+    }
   }
 }

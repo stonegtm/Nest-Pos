@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiQuery } from '@nestjs/swagger';
-import { ProductDto } from './dto/product.dto';
+import { ProductDto, ProductUpdateStockDto } from './dto/product.dto';
 import { ProductService } from './product.service';
 
 @Controller('product')
@@ -34,6 +34,10 @@ export class ProductController {
     @Body() product: ProductDto,
   ) {
     return await this.productService.create(files, product);
+  }
+  @Post('update_stock')
+  async update_stock(@Body() product: ProductUpdateStockDto) {
+    return await this.productService.updateStock(product);
   }
 
   @Patch(':id')

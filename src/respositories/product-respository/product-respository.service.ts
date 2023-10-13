@@ -60,4 +60,9 @@ export class ProductRepositoryService {
     });
     return delete_category;
   }
+  async updateStock(id: string, quantity: number) {
+    const data = { quantity: quantity };
+    await this.productRepository.update(id, data);
+    return true;
+  }
 }

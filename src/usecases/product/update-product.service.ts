@@ -22,8 +22,8 @@ export class UpdateProductService {
     updatedProduct: ProductEntity;
   }> {
     try {
-      console.log('files', files);
-      console.log('>>>>>>>>>>>>>>>>>>>', payload);
+      // console.log('files', files);
+      // console.log('>>>>>>>>>>>>>>>>>>>', payload);
       if (payload.image_delete) {
         const dataArray = payload.image_delete?.split(',');
         // console.log(dataArray);
