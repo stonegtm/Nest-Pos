@@ -1,26 +1,46 @@
-import { Column, CreateDateColumn, Entity, OneToMany } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { DefaultEntity } from './default.entity';
 import { ProductEntity } from './product.entity';
+import { SalesItemEntity } from './sales-item.entity';
+
+enum PaymentMethod {
+  Cash = 'Cash',
+  Banking = 'Banking',
+}
 @Entity({
-    name: 'sales',
+  name: 'sales',
 })
-export class SalesEntity extends DefaultEntity {
-    @Column()
-    product_id: string;
+export class SalesEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    quantity: number;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  saleDate: Date;
 
-    @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
-    unit_price: number;
+  @Column('decimal', { precision: 10, scale: 2 })
+  totalAmount: number;
 
-    @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
-    total_price: number;
+  @Column('decimal', { precision: 10, scale: 2 })
+  totalSumAll: number;
 
-    @OneToMany(() => ProductEntity, (Column) => Column.id)
-    product?: ProductEntity[];
+  @Column('decimal', { precision: 10, scale: 2 })
+  discount: number; // Add this line for the discount
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    created_at: Date;
+  @Column({
+    type: 'enum',
+    enum: PaymentMethod,
+    default: PaymentMethod.Cash, // Default value if needed
+  })
 
+  @Column('text', { nullable: true })
+  notes: string;
+
+  @OneToMany(() => SalesItemEntity, (saleItem) => saleItem.sale)
+  saleItems: SalesItemEntity[];
 }

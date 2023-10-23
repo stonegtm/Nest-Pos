@@ -10,10 +10,31 @@ import { AuthRepositoryService } from './auth-respository/auth-respository.servi
 import { CategoryRepositoryService } from './category-respository/category-respository.service';
 import { ProductRepositoryService } from './product-respository/product-respository.service';
 import { SaleRepositoryService } from './sale-respository/sale-respository.service';
+import { SalesItemEntity } from 'src/database/entities/sales-item.entity';
 
 @Module({
-  imports: [DatabaseModule, TypeOrmModule.forFeature([UserEntity, CategoryEntity, ProductEntity, ProductImageEntity, SalesEntity])],
-  providers: [AuthRepositoryService, CategoryRepositoryService, ProductRepositoryService, SaleRepositoryService],
-  exports: [AuthRepositoryService, CategoryRepositoryService, ProductRepositoryService, SaleRepositoryService],
+  imports: [
+    DatabaseModule,
+    TypeOrmModule.forFeature([
+      UserEntity,
+      CategoryEntity,
+      ProductEntity,
+      ProductImageEntity,
+      SalesEntity,
+      SalesItemEntity
+    ]),
+  ],
+  providers: [
+    AuthRepositoryService,
+    CategoryRepositoryService,
+    ProductRepositoryService,
+    SaleRepositoryService,
+  ],
+  exports: [
+    AuthRepositoryService,
+    CategoryRepositoryService,
+    ProductRepositoryService,
+    SaleRepositoryService,
+  ],
 })
-export class RepositoriesModule { }
+export class RepositoriesModule {}

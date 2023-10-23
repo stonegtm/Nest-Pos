@@ -1,15 +1,25 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
+import { ArrayMinSize, IsArray, IsNumber, IsString } from 'class-validator';
 
 export class CreateSaleDto {
-    @ApiProperty()
-    product_id: string;
+  @ApiProperty()
+  @IsNumber()
+  totalAmount: number;
 
-    @ApiProperty()
-    quantity: number;
+  @ApiProperty()
+  @IsNumber()
+  discount: number;
 
-    @ApiProperty()
-    unit_price: number;
+  @ApiProperty()
+  @IsNumber()
+  totalSumAll: number;
 
-    @ApiProperty()
-    total_price: number;
+  @ApiProperty()
+  @IsString()
+  notes: string;
+
+  @ApiProperty()
+  @IsArray()
+  @ArrayMinSize(1, { message: 'At least one product is required' })
+  product: Array<string>;
 }

@@ -13,8 +13,14 @@ export class UpdateStockService {
       const itemStock = JSON.parse(payload.data_stock);
       console.log(itemStock);
       if (itemStock.length > 0) {
-        itemStock?.map((item: any) => {
-          this.productRepositoryService.updateStock(item.id, item.quantity);
+        itemStock?.map(async (item: any) => {
+          const previous: any = await this.productRepositoryService.findOne(
+            item.id,
+          );
+          this.productRepositoryService.updateStock(
+            item.id,
+            previous.quantity + item.quantity,
+          );
         });
         return { status: true };
       } else {

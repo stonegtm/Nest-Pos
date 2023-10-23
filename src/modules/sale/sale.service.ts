@@ -8,17 +8,17 @@ import { UpdateSaleDto } from './dto/update-sale.dto';
 
 @Injectable()
 export class SaleService {
-  constructor(
-    private readonly createSaleService: CreateSaleService
-  ) { }
+  constructor(private readonly createSaleService: CreateSaleService) {}
   async create(createSaleDto: CreateSaleDto) {
     try {
-      const result_create_sale = await this.createSaleService.execute(createSaleDto)
-      if (result_create_sale) {
-        return response(RESULT.TRUE, HttpStatus.CREATED, MESSAGE.SUCCESS);
-      } else {
-        return response(RESULT.FALSE, HttpStatus.BAD_REQUEST, MESSAGE.ERROR_SAVE);
-      }
+      const result_create_sale =
+        await this.createSaleService.execute(createSaleDto);
+      return result_create_sale;
+      // if (result_create_sale) {
+      //   return response(RESULT.TRUE, HttpStatus.CREATED, MESSAGE.SUCCESS);
+      // } else {
+      //   return response(RESULT.FALSE, HttpStatus.BAD_REQUEST, MESSAGE.ERROR_SAVE);
+      // }
     } catch (error) {
       return response(
         RESULT.FALSE,
@@ -28,7 +28,6 @@ export class SaleService {
         error,
       );
     }
-    return 'This action adds a new sale';
   }
 
   findAll() {

@@ -35,7 +35,7 @@ export class ProductRepositoryService {
     const update_product = await this.productRepository.update(id, body);
     return update_product;
   }
-  async findAllProduct(id) {
+  async findAllProductByCategory(id) {
     const product = await this.productRepository.find({
       where: id ? { category_id: id } : null,
       relations: {

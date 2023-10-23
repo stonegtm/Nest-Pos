@@ -14,7 +14,6 @@ export class AddProductService {
 
   async execute(files, payload: ProductDto): Promise<ProductEntity> {
     try {
-      console.log('files', files);
       const productData = new ProductEntity();
       productData.name = payload.name;
       productData.description = payload.description;

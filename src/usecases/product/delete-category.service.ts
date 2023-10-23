@@ -10,7 +10,6 @@ export class DeleteProductService {
   async execute(id: string) {
     try {
       const productData = await this.productRepositoryService.findOne(id);
-      console.log(productData);
       const res = await this.productRepositoryService.delete(id);
       return { message: 'ลบสินค้าสำเร็จแล้ว', status: true };
     } catch (error) {

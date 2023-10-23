@@ -14,6 +14,7 @@ import { FindOneProductService } from './product/find-one-product.service';
 import { UpdateProductService } from './product/update-product.service';
 import { UpdateStockService } from './product/update-stock.service';
 import { CreateSaleService } from './sale/create/create.service';
+import { GetProductAndCategoryService } from './category/get-product-and-category/get-product-and-category.service';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CreateSaleService } from './sale/create/create.service';
     CreateSaleService,
     FindOneProductService,
     UpdateStockService,
+    GetProductAndCategoryService,
   ],
   exports: [
     CreateUserService,
@@ -56,6 +58,7 @@ import { CreateSaleService } from './sale/create/create.service';
     CreateSaleService,
     FindOneProductService,
     UpdateStockService,
+    GetProductAndCategoryService,
   ],
 })
 export class UsecasesModule {}
