@@ -18,7 +18,7 @@ import { UsecasesModule } from './usecases/usecases.module';
     // }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `src/common/env/${process.env.NODE_ENV || 'dev'}.env`,
+      envFilePath: `src/common/env/${process.env.NODE_ENV || 'prod'}.env`,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '../files'),
