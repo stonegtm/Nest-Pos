@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryEntity } from './entities/category.entity';
 import { ProductEntity } from './entities/product.entity';
@@ -8,15 +9,19 @@ import { SalesEntity } from './entities/sales.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '45.144.164.18',
-      port: 5432,
-      username: 'poseggadmin',
-      password: 'YHkxty3UFi48YY4qZ7XjY7Cx9eoiTpTBDSJ7i7RVgvJaVsxrKAp4KTz6',
-      database: 'pos_egg',
-      autoLoadEntities: true,
-      synchronize: true, //set false for production
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('HOST_DB'),
+        port: configService.get<number>('PORT_DB'),
+        password: configService.get<string>('PASSWORD_DB'),
+        username: configService.get<string>('USERNAME_DB'),
+        database: configService.get<string>('DATABASE'),
+        synchronize: configService.get<boolean>('DB_SYNCHRONIZE'),
+        autoLoadEntities: true,
+      }),
     }),
     TypeOrmModule.forFeature([
       CategoryEntity,
