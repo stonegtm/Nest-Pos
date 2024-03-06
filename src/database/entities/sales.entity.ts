@@ -1,12 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { DefaultEntity } from './default.entity';
-import { ProductEntity } from './product.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SalesItemEntity } from './sales-item.entity';
 
 enum PaymentMethod {
@@ -37,7 +29,6 @@ export class SalesEntity {
     enum: PaymentMethod,
     default: PaymentMethod.Cash, // Default value if needed
   })
-
   @Column('text', { nullable: true })
   notes: string;
 

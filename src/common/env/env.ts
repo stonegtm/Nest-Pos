@@ -1,16 +1,11 @@
 export const ENV = () => {
     // console.log('process.envprocess.envprocess.env======::', process.env);
     return {
-        // VERSION: process.env.VERSION,
-        // PORT: process.env.PORT,
-        // SWAGGER_PATH: process.env.SWAGGER_PATH,
-        // ENV_NAME: process.env.ENV_NAME,
-        // DB_TYPE: process.env.DB_TYPE,
-        // DB_HOST: process.env.DB_HOST,
-        // DB_PORT: process.env.DB_PORT,
-        // DB_USERNAME: process.env.DB_USERNAME,
-        // DB_PASSWORD: process.env.DB_PASSWORD,
-        // DB_DATABASE: process.env.DB_DATABASE,
+        HOST:process.env.HOST,
+        PORT:process.env.PORT,
+        USERNAME:process.env.USERNAME,
+        PASSWORD:process.env.PASSWORD,
+        DATABASE:process.env.DATABASE,
         URL_API: process.env.URL_API,
         // URL_FRONTEND: process.env.URL_FRONTEND,
         // SCHEMA_PUBLIC: process.env.SCHEMA_PUBLIC,

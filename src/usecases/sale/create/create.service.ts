@@ -21,14 +21,20 @@ export class CreateSaleService {
     if (saleBill) {
       let saleItemModel = new SalesItemEntity();
       payload.product.map(async (item: any) => {
-        console.log(item)
         const product = await this.productRepositoryService.findOne(item.id);
-        saleItemModel.product = product;
-        saleItemModel.sale = saleBill;
-        saleItemModel.quantity = item.quantity;
-        saleItemModel.unitPrice = item.unitPrice;
-        saleItemModel.totalPrice = item.totalPrice;
-        await this.saleRepositoryService.saveItem(saleItemModel)
+        let new_quantity = product.quantity - item.quantity;
+        const updateResult = await this.productRepositoryService.update(
+          item.id,
+          { quantity: new_quantity },
+        );
+        if (updateResult) {
+          saleItemModel.product = product;
+          saleItemModel.sale = saleBill;
+          saleItemModel.quantity = item.quantity;
+          saleItemModel.unitPrice = item.unitPrice;
+          saleItemModel.totalPrice = item.totalPrice;
+          await this.saleRepositoryService.saveItem(saleItemModel);
+        }
       });
     }
     return saleBill;

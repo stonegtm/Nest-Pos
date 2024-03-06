@@ -50,6 +50,9 @@ export class CategoryRepositoryService {
           relations: {
             files: true,
           },
+          order: {
+            name: 'asc',
+          },
         });
         data.product = product;
       }),
