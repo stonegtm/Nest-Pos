@@ -1,11 +1,8 @@
 version: '3'
-
 services:
-  nestapp:
-    container_name: nestapp
-    image: nestapp:1.0.0
+  nest-app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
+    container_name: pos-egg
     ports:
-      - '3000:3000'
+      - '9000:5000'

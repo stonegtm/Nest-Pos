@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
-import { ENV } from '../../common/env/env';
+import { ENV } from '../../config/env/env';
 import { ProductEntity } from '../../database/entities/product.entity';
 import { ProductImageEntity } from '../../database/entities/product_image';
 import { ProductDto } from '../../modules/product/dto/product.dto';

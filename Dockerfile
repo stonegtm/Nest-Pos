@@ -1,11 +1,24 @@
-FROM node:18
+# Base image
+FROM node:16.5
 
-RUN npm i -g @nestjs/cli
+# Create app directory
+WORKDIR /app
 
-COPY package.json .
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
 
-RUN npm install
+# Install app dependencies
+RUN npm install --force
 
+# Bundle app source
 COPY . .
 
-CMD ["nest", "start"]
+# Creates a "dist" folder with the production build
+RUN npm run build
+
+# Expose a port (if your application listens on a specific port)
+EXPOSE 5000
+
+# Start the server using the production build
+CMD [ "node", "dist/main.js" ]
+
