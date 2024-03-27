@@ -10,6 +10,7 @@ import { ProductModule } from './modules/product/product.module';
 import { SaleModule } from './modules/sale/sale.module';
 import { RepositoriesModule } from './respositories/repositories.module';
 import { UsecasesModule } from './usecases/usecases.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UsecasesModule } from './usecases/usecases.module';
     CategoryModule,
     ProductModule,
     SaleModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
