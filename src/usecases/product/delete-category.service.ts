@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ProductRepositoryService } from '../../respositories/product-respository/product-respository.service';
 
 @Injectable()
@@ -10,7 +10,10 @@ export class DeleteProductService {
   async execute(id: string) {
     try {
       const productData = await this.productRepositoryService.findOne(id);
-      const res = await this.productRepositoryService.delete(id);
+      if(!productData){
+        throw new BadRequestException("Product Invalid")
+      }
+      const res = await this.productRepositoryService.delete(productData);
       return { message: 'ลบสินค้าสำเร็จแล้ว', status: true };
     } catch (error) {
       // Handle any error that occurred during the save operation

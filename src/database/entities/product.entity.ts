@@ -32,15 +32,12 @@ export class ProductEntity extends DefaultEntity {
   @Column()
   category_id: string;
 
+  @Column({ nullable: true })
+  unit: string;
+
   @OneToMany(() => ProductImageEntity, (image) => image.product)
   files?: ProductImageEntity[];
 
-  @ManyToOne(() => CategoryEntity, (category) => category.products)
-  category: CategoryEntity;
-
-  @OneToMany(() => SalesItemEntity, saleItem => saleItem.product)
+  @OneToMany(() => SalesItemEntity, (saleItem) => saleItem.product)
   saleItems: SalesItemEntity[];
-
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
 }

@@ -50,8 +50,13 @@ export class ProductRepositoryService {
     });
     return product;
   }
-  async delete(id: string) {
-    const delete_category = await this.productRepository.delete(id);
+  async delete(product: ProductEntity) {
+    if (product.files.length > 0) {
+      product.files.forEach(async (element) => {
+        await this.productImageRepository.delete(element.id);
+      });
+    }
+    const delete_category = await this.productRepository.delete(product.id);
     return delete_category;
   }
   async deleteImage(img_name: string) {

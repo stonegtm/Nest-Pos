@@ -11,7 +11,7 @@ export class UpdateStockService {
   async execute(payload: ProductUpdateStockDto) {
     try {
       const itemStock = JSON.parse(payload.data_stock);
-      console.log(itemStock);
+      // console.log(itemStock);
       if (itemStock.length > 0) {
         itemStock?.map(async (item: any) => {
           const previous: any = await this.productRepositoryService.findOne(

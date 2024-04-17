@@ -7,6 +7,8 @@ export class ProductDto {
   description?: string;
   @ApiProperty({ type: String, example: `xxxxx` })
   quantity?: number;
+  @ApiProperty({ type: String, example: `แผง` })
+  unit?: string;
   @ApiProperty({ type: String, example: `xxxxx` })
   price?: number;
   @ApiProperty({ type: String, example: `xxxxx` })

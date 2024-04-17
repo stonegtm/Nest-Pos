@@ -17,7 +17,8 @@ export class AddProductService {
       const productData = new ProductEntity();
       productData.name = payload.name;
       productData.description = payload.description;
-      productData.quantity = 0;
+      productData.quantity = payload?.quantity || 0;
+      productData.unit = payload.unit;
       productData.price = payload.price;
       productData.category_id = payload.category_id;
       const product = await this.productRepositoryService.save(productData);

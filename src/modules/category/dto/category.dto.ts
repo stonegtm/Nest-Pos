@@ -1,10 +1,15 @@
 
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CategoryDto {
     @ApiProperty({ type: String, example: `xxxxx` })
+    @IsString()
     name: string;
-    @ApiProperty({ type: String, example: `xxxxx` })
+    
+    @ApiPropertyOptional({ type: String, example: `xxxxx` })
+    @IsString()
+    @IsOptional()
     description?: string;
 }
 

@@ -12,9 +12,4 @@ export class CategoryEntity extends DefaultEntity {
   @Column()
   description?: string;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
-
-  @OneToMany(() => ProductEntity, (products) => products.category)
-  products?: ProductEntity[];
 }
