@@ -12,10 +12,8 @@ import { SalesEntity } from './sales.entity';
 @Entity({
   name: 'sales_item',
 })
-export class SalesItemEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-  
+export class SalesItemEntity extends DefaultEntity {
+ 
     @ManyToOne(() => SalesEntity, sale => sale.saleItems)
     sale: SalesEntity;
   

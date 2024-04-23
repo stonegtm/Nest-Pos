@@ -8,6 +8,7 @@ import { SalesItemEntity } from './entities/sales-item.entity';
 import { ENV } from '../common/env/env';
 import { SalesEntity } from './entities/sales.entity';
 import { UserEntity } from './entities/user.entity';
+import { CategoryKeepProductEntity } from './entities/category-keep-product';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -26,7 +27,7 @@ import { UserEntity } from './entities/user.entity';
       SalesEntity,
       ProductImageEntity,
       SalesItemEntity,
-      UserEntity
+      UserEntity,CategoryKeepProductEntity
     ]),
   ],
 })

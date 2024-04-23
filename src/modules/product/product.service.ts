@@ -9,6 +9,7 @@ import { FindOneProductService } from '../../usecases/product/find-one-product.s
 import { UpdateProductService } from '../../usecases/product/update-product.service';
 import { UpdateStockService } from '../../usecases/product/update-stock.service';
 import { ProductDto, ProductUpdateStockDto } from './dto/product.dto';
+import { GetProductByCategoryService } from 'src/usecases/product/get-product-by-category/get-product-by-category.service';
 
 @Injectable()
 export class ProductService {
@@ -19,6 +20,7 @@ export class ProductService {
     private readonly updateProductService: UpdateProductService,
     private readonly deleteProductService: DeleteProductService,
     private readonly updateStockService: UpdateStockService,
+    private readonly getProductByCategoryService: GetProductByCategoryService,
   ) {}
   async create(files: Array<Express.Multer.File>, product: ProductDto) {
     try {
@@ -49,6 +51,34 @@ export class ProductService {
     try {
       const result_create_product =
         await this.findAllProductService.execute(category_id);
+      // if (result_create_product) {
+      //   return response(
+      //     RESULT.TRUE,
+      //     HttpStatus.OK,
+      //     MESSAGE.SUCCESS,
+      //     result_create_product,
+      //   );
+      // } else {
+      //   return response(
+      //     RESULT.FALSE,
+      //     HttpStatus.BAD_REQUEST,
+      //     MESSAGE.ERROR_SAVE,
+      //   );
+      // }
+    } catch (error) {
+      return response(
+        RESULT.FALSE,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        MESSAGE.NET_ERROR,
+        '',
+        error,
+      );
+    }
+  }
+  async findOne(product_id) {
+    try {
+      const result_create_product =
+        await this.findOneProductService.execute(product_id);
       if (result_create_product) {
         return response(
           RESULT.TRUE,
@@ -73,16 +103,16 @@ export class ProductService {
       );
     }
   }
-  async findOne(product_id) {
+  async getProductTab() {
     try {
-      const result_create_product =
-        await this.findOneProductService.execute(product_id);
-      if (result_create_product) {
+      const produc_tab =
+        await this.getProductByCategoryService.execute();
+      if (produc_tab) {
         return response(
           RESULT.TRUE,
           HttpStatus.OK,
           MESSAGE.SUCCESS,
-          result_create_product,
+          produc_tab,
         );
       } else {
         return response(

@@ -8,6 +8,7 @@ import { FindAllCategoryService } from '../../usecases/category/find-all-categor
 import { UpdateCategoryService } from '../../usecases/category/update-category.service';
 import { CategoryDto } from './dto/category.dto';
 import { GetProductAndCategoryService } from 'src/usecases/category/get-product-and-category/get-product-and-category.service';
+import { GetOneCategoryService } from 'src/usecases/category/get-one-category/get-one-category.service';
 
 @Injectable()
 export class CategoryService {
@@ -17,17 +18,13 @@ export class CategoryService {
     private readonly findAllCategoryService: FindAllCategoryService,
     private readonly deleteCategoryService: DeleteCategoryService,
     private readonly getProductAndCategoryService: GetProductAndCategoryService,
+    private readonly getOneCategoryService: GetOneCategoryService,
   ) {}
   async findProductByCategory() {
     try {
       const product = await this.getProductAndCategoryService.execute();
       if (product.length > 0) {
-        return response(
-          RESULT.TRUE,
-          HttpStatus.OK,
-          MESSAGE.SUCCESS,
-          product,
-        );
+        return response(RESULT.TRUE, HttpStatus.OK, MESSAGE.SUCCESS, product);
       } else {
         return response(
           RESULT.FALSE,
@@ -37,6 +34,26 @@ export class CategoryService {
       }
     } catch (error) {
       return response(RESULT.FALSE, HttpStatus.BAD_REQUEST, MESSAGE.DATA_EMPTY);
+    }
+  }
+  async findOne(id: string) {
+    try {
+      const find_category_all: any =
+        await this.getOneCategoryService.execute(id);
+        return response(
+          RESULT.TRUE,
+          HttpStatus.OK,
+          MESSAGE.SUCCESS,
+          find_category_all,
+        );
+    } catch (error) {
+      return response(
+        RESULT.FALSE,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        MESSAGE.NET_ERROR,
+        '',
+        error,
+      );
     }
   }
   async findAll() {

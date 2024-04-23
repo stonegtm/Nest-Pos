@@ -12,6 +12,7 @@ import { DefaultEntity } from './default.entity';
 import { ProductImageEntity } from './product_image';
 import { CategoryEntity } from './category.entity';
 import { SalesItemEntity } from './sales-item.entity';
+import { CategoryKeepProductEntity } from './category-keep-product';
 
 @Entity({
   name: 'products',
@@ -29,8 +30,15 @@ export class ProductEntity extends DefaultEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   price: number;
 
-  @Column()
-  category_id: string;
+  // Define the relation with CategoryKeepProductEntity
+  @OneToMany(
+    () => CategoryKeepProductEntity,
+    (categoryKeepProduct) => categoryKeepProduct.product,
+  )
+  categoryConnections: CategoryKeepProductEntity[];
+  // @ManyToOne(() => CategoryEntity, category => category.products) // Link to CategoryEntity
+  // @JoinColumn({ name: 'category_id' }) // Map to the external key column
+  // category: CategoryEntity;
 
   @Column({ nullable: true })
   unit: string;

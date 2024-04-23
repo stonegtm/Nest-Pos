@@ -23,10 +23,16 @@ export class ProductController {
   async findAll(@Query('category') category_id?: string) {
     return await this.productService.findAll(category_id);
   }
-  @Get(':id')
+  @Get('get-one-product/:id')
   async findOne(@Param('id') id: string) {
     return await this.productService.findOne(id);
   }
+
+  @Get('product-tabs')
+  async getProductTab() {
+    return await this.productService.getProductTab();
+  }
+
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
   async create(

@@ -23,6 +23,8 @@ import { ProductImageEntity } from 'src/database/entities/product_image';
 import { SalesItemEntity } from 'src/database/entities/sales-item.entity';
 import { UserEntity } from 'src/database/entities/user.entity';
 import { LoginService } from './auth/login/login.service';
+import { GetProductByCategoryService } from './product/get-product-by-category/get-product-by-category.service';
+import { GetOneCategoryService } from './category/get-one-category/get-one-category.service';
 
 @Module({
   imports: [
@@ -47,6 +49,7 @@ import { LoginService } from './auth/login/login.service';
     FindAllCategoryService,
     UpdateCategoryService,
     DeleteCategoryService,
+    GetOneCategoryService,
     //Product
     AddProductService,
     FindAllProductService,
@@ -56,6 +59,7 @@ import { LoginService } from './auth/login/login.service';
     FindOneProductService,
     UpdateStockService,
     GetProductAndCategoryService,
+    GetProductByCategoryService,
     //User
     RegisterUserService,
     LoginService,
@@ -66,6 +70,7 @@ import { LoginService } from './auth/login/login.service';
     FindAllCategoryService,
     UpdateCategoryService,
     DeleteCategoryService,
+    GetOneCategoryService,
     //Product
     AddProductService,
     FindAllProductService,
@@ -75,6 +80,7 @@ import { LoginService } from './auth/login/login.service';
     FindOneProductService,
     UpdateStockService,
     GetProductAndCategoryService,
+    GetProductByCategoryService,
     //User
     RegisterUserService,
     LoginService,

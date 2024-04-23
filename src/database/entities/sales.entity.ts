@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SalesItemEntity } from './sales-item.entity';
+import { DefaultEntity } from './default.entity';
 
 enum PaymentMethod {
   Cash = 'Cash',
@@ -8,13 +9,7 @@ enum PaymentMethod {
 @Entity({
   name: 'sales',
 })
-export class SalesEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  saleDate: Date;
-
+export class SalesEntity extends DefaultEntity {
   @Column('decimal', { precision: 10, scale: 2 })
   totalAmount: number;
 

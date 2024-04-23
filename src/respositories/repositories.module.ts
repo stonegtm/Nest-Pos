@@ -9,6 +9,7 @@ import { SalesEntity } from '../database/entities/sales.entity';
 import { CategoryRepositoryService } from './category-respository/category-respository.service';
 import { ProductRepositoryService } from './product-respository/product-respository.service';
 import { SaleRepositoryService } from './sale-respository/sale-respository.service';
+import { CategoryKeepProductEntity } from 'src/database/entities/category-keep-product';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { SaleRepositoryService } from './sale-respository/sale-respository.servi
       ProductImageEntity,
       SalesEntity,
       SalesItemEntity,
+      CategoryKeepProductEntity
     ]),
   ],
   providers: [

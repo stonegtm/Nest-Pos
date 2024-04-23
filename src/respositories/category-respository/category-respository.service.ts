@@ -32,6 +32,19 @@ export class CategoryRepositoryService {
     const category = await this.categoryRepository.find();
     return category;
   }
+  async findProductBycate() {
+    const category = await this.categoryRepository.find({
+      relations: {
+        // products: {
+        //   files: true,
+        // },
+      },
+      order: {
+        order_no: 'ASC',
+      },
+    });
+    return category;
+  }
   async delete(id: string) {
     const delete_category = await this.categoryRepository.delete(id);
     return delete_category;
@@ -40,23 +53,23 @@ export class CategoryRepositoryService {
     const categoriesWithProducts = await this.categoryRepository.find({
       select: ['id', 'name'],
     });
-    await Promise.all(
-      categoriesWithProducts.map(async (data: any) => {
-        data.product = [];
-        const product = await this.productRepository.find({
-          where: {
-            category_id: data.id,
-          },
-          relations: {
-            files: true,
-          },
-          order: {
-            name: 'asc',
-          },
-        });
-        data.product = product;
-      }),
-    );
+    // await Promise.all(
+    //   categoriesWithProducts.map(async (data: any) => {
+    //     data.product = [];
+    //     const product = await this.productRepository.find({
+    //       where: {
+    //         category: data.id,
+    //       },
+    //       relations: {
+    //         files: true,
+    //       },
+    //       order: {
+    //         name: 'asc',
+    //       },
+    //     });
+    //     data.product = product;
+    //   }),
+    // );
     return categoriesWithProducts;
   }
 }

@@ -11,8 +11,8 @@ export class ProductDto {
   unit?: string;
   @ApiProperty({ type: String, example: `xxxxx` })
   price?: number;
-  @ApiProperty({ type: String, example: `xxxxx` })
-  category_id?: string;
+  @ApiProperty({ type: String, example: [`xxxxx`] })
+  category_id?: any;
   @ApiProperty()
   files?: any;
   @ApiProperty()

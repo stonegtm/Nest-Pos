@@ -5,23 +5,43 @@ import { ProductEntity } from '../../database/entities/product.entity';
 import { ProductImageEntity } from '../../database/entities/product_image';
 import { ProductDto } from '../../modules/product/dto/product.dto';
 import { ProductRepositoryService } from '../../respositories/product-respository/product-respository.service';
+import { CategoryRepositoryService } from 'src/respositories/category-respository/category-respository.service';
 
 @Injectable()
 export class AddProductService {
   constructor(
     private readonly productRepositoryService: ProductRepositoryService,
+    private readonly categoryRepositoryService: CategoryRepositoryService,
   ) {}
 
   async execute(files, payload: ProductDto): Promise<ProductEntity> {
     try {
+      if (!payload.category_id) {
+        throw new Error('Invalid categoy.');
+      }
+      const category_arr = JSON.parse(payload.category_id);
+
       const productData = new ProductEntity();
       productData.name = payload.name;
       productData.description = payload.description;
       productData.quantity = payload?.quantity || 0;
       productData.unit = payload.unit;
       productData.price = payload.price;
-      productData.category_id = payload.category_id;
       const product = await this.productRepositoryService.save(productData);
+      category_arr.map(async (data) => {
+        let category = await this.categoryRepositoryService.findOne(data);
+        if (!category) {
+          throw new Error('Invalid categoy.');
+        }
+        let keepProductToCategory = {
+          product: product,
+          category: category,
+        };
+        await this.productRepositoryService.saveProductKeepCategory(
+          keepProductToCategory,
+        );
+      });
+
       for (const file of files) {
         const img_path = `${gen_uuid().toString()}.${
           file.mimetype.split('/')[1]
