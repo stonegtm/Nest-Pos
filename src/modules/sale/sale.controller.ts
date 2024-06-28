@@ -1,25 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { SaleService } from './sale.service';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
+import { GetListSaleDto } from './dto/get-list-sale';
+import { GetListSaleProductDto } from './dto/get-list-sale-product';
 
 @Controller('sale')
 export class SaleController {
   constructor(private readonly saleService: SaleService) {}
 
-  @Post("product")
+  @Post('product')
   create(@Body() createSaleDto: CreateSaleDto) {
     return this.saleService.create(createSaleDto);
   }
 
-  @Get()
-  findAll() {
-    return this.saleService.findAll();
+  @Get('list-sales')
+  getListSale(@Query() query: GetListSaleDto) {
+    return this.saleService.getListSale(query);
   }
 
-  @Get(':id')
+  @Get('list-product/:id')
   findOne(@Param('id') id: string) {
-    return this.saleService.findOne(+id);
+    return this.saleService.findOne(id);
   }
 
   @Patch(':id')
@@ -27,8 +38,8 @@ export class SaleController {
     return this.saleService.update(+id, updateSaleDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.saleService.remove(+id);
+  @Post('cancel-order/:id')
+  cancelOrder(@Param('id') id: string) {
+    return this.saleService.cancelOrder(id);
   }
 }

@@ -35,9 +35,11 @@ export class CategoryRepositoryService {
   async findProductBycate() {
     const category = await this.categoryRepository.find({
       relations: {
-        // products: {
-        //   files: true,
-        // },
+        productConnections: {
+          product: {
+            files: true,
+          },
+        },
       },
       order: {
         order_no: 'ASC',

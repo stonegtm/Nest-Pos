@@ -10,6 +10,8 @@ import { CategoryRepositoryService } from './category-respository/category-respo
 import { ProductRepositoryService } from './product-respository/product-respository.service';
 import { SaleRepositoryService } from './sale-respository/sale-respository.service';
 import { CategoryKeepProductEntity } from 'src/database/entities/category-keep-product';
+import { LogSaleEntity } from 'src/database/entities/log-sales.entity';
+import { DashboardRepositoryService } from './dashboard-repository/dashboard-repository.service';
 
 @Module({
   imports: [
@@ -20,18 +22,21 @@ import { CategoryKeepProductEntity } from 'src/database/entities/category-keep-p
       ProductImageEntity,
       SalesEntity,
       SalesItemEntity,
-      CategoryKeepProductEntity
+      CategoryKeepProductEntity,
+      LogSaleEntity
     ]),
   ],
   providers: [
     CategoryRepositoryService,
     ProductRepositoryService,
     SaleRepositoryService,
+    DashboardRepositoryService,
   ],
   exports: [
     CategoryRepositoryService,
     ProductRepositoryService,
     SaleRepositoryService,
+    DashboardRepositoryService,
   ],
 })
 export class RepositoriesModule {}

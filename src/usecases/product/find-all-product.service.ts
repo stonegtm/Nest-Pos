@@ -9,9 +9,9 @@ export class FindAllProductService {
 
   async execute(category_id) {
     try {
-      const productData =
-        this.productRepositoryService.findAllProductByCategory(category_id);
-      return productData;
+      return await this.productRepositoryService.findAllProductByCategory(
+        category_id,
+      );
     } catch (error) {
       // Handle any error that occurred during the save operation
       console.error(error); // Log the error for debugging

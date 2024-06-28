@@ -51,20 +51,20 @@ export class ProductService {
     try {
       const result_create_product =
         await this.findAllProductService.execute(category_id);
-      // if (result_create_product) {
-      //   return response(
-      //     RESULT.TRUE,
-      //     HttpStatus.OK,
-      //     MESSAGE.SUCCESS,
-      //     result_create_product,
-      //   );
-      // } else {
-      //   return response(
-      //     RESULT.FALSE,
-      //     HttpStatus.BAD_REQUEST,
-      //     MESSAGE.ERROR_SAVE,
-      //   );
-      // }
+      if (result_create_product) {
+        return response(
+          RESULT.TRUE,
+          HttpStatus.OK,
+          MESSAGE.SUCCESS,
+          result_create_product,
+        );
+      } else {
+        return response(
+          RESULT.FALSE,
+          HttpStatus.BAD_REQUEST,
+          MESSAGE.ERROR_SAVE,
+        );
+      }
     } catch (error) {
       return response(
         RESULT.FALSE,

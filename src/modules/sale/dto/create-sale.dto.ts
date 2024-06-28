@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMinSize, IsArray, IsNumber, IsString } from 'class-validator';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateSaleDto {
   @ApiProperty()
@@ -19,7 +19,8 @@ export class CreateSaleDto {
   notes: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsArray()
   @ArrayMinSize(1, { message: 'At least one product is required' })
-  product: Array<string>;
+  product_detail: Array<string>;
 }

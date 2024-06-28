@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { RepositoriesModule } from '../respositories/repositories.module';
 import { AddCategoryService } from './category/add-category.service';
 import { DeleteCategoryService } from './category/delete-category.service';
@@ -25,14 +25,19 @@ import { UserEntity } from 'src/database/entities/user.entity';
 import { LoginService } from './auth/login/login.service';
 import { GetProductByCategoryService } from './product/get-product-by-category/get-product-by-category.service';
 import { GetOneCategoryService } from './category/get-one-category/get-one-category.service';
+import { ListSalesService } from './sale/list-sales/list-sales.service';
+import { GetListSaleProductService } from './sale/get-list-sale-product/get-list-sale-product.service';
+import { CancelOrderService } from './sale/cancel-order/cancel-order.service';
+import { GetTopSalesService } from './dashboard/get-top-sales/get-top-sales.service';
+import { GetChartSaleService } from './dashboard/get-chart-sale/get-chart-sale.service';
 
 @Module({
   imports: [
-    RepositoriesModule,
     JwtModule.register({
       secret: '123456', // Replace with your actual JWT secret
       signOptions: { expiresIn: '20d' }, // Set your desired expiration time
     }),
+    RepositoriesModule,
     DatabaseModule,
     TypeOrmModule.forFeature([
       CategoryEntity,
@@ -55,7 +60,6 @@ import { GetOneCategoryService } from './category/get-one-category/get-one-categ
     FindAllProductService,
     UpdateProductService,
     DeleteProductService,
-    CreateSaleService,
     FindOneProductService,
     UpdateStockService,
     GetProductAndCategoryService,
@@ -63,6 +67,13 @@ import { GetOneCategoryService } from './category/get-one-category/get-one-categ
     //User
     RegisterUserService,
     LoginService,
+    //Sale
+    CreateSaleService,
+    ListSalesService,
+    GetListSaleProductService,
+    CancelOrderService,
+    GetTopSalesService,
+    GetChartSaleService,
   ],
   exports: [
     //Category
@@ -76,7 +87,6 @@ import { GetOneCategoryService } from './category/get-one-category/get-one-categ
     FindAllProductService,
     UpdateProductService,
     DeleteProductService,
-    CreateSaleService,
     FindOneProductService,
     UpdateStockService,
     GetProductAndCategoryService,
@@ -84,7 +94,13 @@ import { GetOneCategoryService } from './category/get-one-category/get-one-categ
     //User
     RegisterUserService,
     LoginService,
-
+    //Sale
+    CreateSaleService,
+    ListSalesService,
+    GetListSaleProductService,
+    CancelOrderService,
+    GetTopSalesService,
+    GetChartSaleService,
   ],
 })
 export class UsecasesModule {}

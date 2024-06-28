@@ -46,7 +46,22 @@ export class ProductRepositoryService {
   }
   async findAllProductByCategory(id) {
     if (id) {
-      const product = await this.categoryRepo.find({});
+      const product_category: any = await this.categoryRepo.findOne({
+        where: {
+          id: id,
+        },
+        relations: {
+          productConnections: {
+            product: {
+              files: true,
+            },
+          },
+        },
+      });
+      const product_find_by_category = product_category.productConnections?.map(
+        (connection) => connection.product,
+      );
+      return product_find_by_category;
     }
     const product = await this.productRepository.find({
       relations: {
@@ -56,9 +71,9 @@ export class ProductRepositoryService {
         name: 'asc',
       },
     });
-    product.map((data: any, index) => {
-      data.key = index + 1;
-    });
+    // product.map((data: any, index) => {
+    //   data.key = index + 1;
+    // });
     return product;
   }
   async delete(product: ProductEntity) {
