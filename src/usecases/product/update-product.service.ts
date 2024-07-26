@@ -22,13 +22,10 @@ export class UpdateProductService {
     updatedProduct: ProductEntity;
   }> {
     try {
-      // console.log('files', files);
-      // console.log('>>>>>>>>>>>>>>>>>>>', payload);
       if (payload.image_delete) {
         const dataArray = payload.image_delete?.split(',');
-        // console.log(dataArray);
         dataArray?.map((data) => {
-          const filePath = `../files/` + data; // Replace with the actual path to the file you want to remove
+          const filePath = `../files/` + data;
           fs.unlink(filePath, (err) => {
             if (err) {
               console.error('Error deleting the file:', err);
@@ -44,6 +41,36 @@ export class UpdateProductService {
       if (!existingCategory) {
         throw new NotFoundException('Product not found'); // Throw a 404 error if the category doesn't exist
       }
+      const category_new = JSON.parse(payload.category_id);
+      const hasNonMatchingUUIDs = (uuids, categories) => {
+        // Extract the category IDs from categoryArray
+        const categoryIds = categories.map((item) => item.category.id);
+
+        // Check if any UUID from uuidArray is not present in categoryIds
+        const nonMatching = uuids.some((uuid) => !categoryIds.includes(uuid));
+
+        return nonMatching;
+      };
+
+      const nonMatching = hasNonMatchingUUIDs(
+        category_new,
+        existingCategory.categoryConnections,
+      );
+      console.log('Are there non-matching UUIDs?', nonMatching);
+      if (nonMatching) {
+        existingCategory.categoryConnections.forEach(async (element) => {
+          await this.productRepositoryService.deleteConnectCategory(
+            element,
+          );
+        });
+        category_new.forEach(async (element) => {
+          await this.productRepositoryService.saveProductKeepCategory({
+            product: existingCategory,
+            category: element,
+          });
+        });
+      }
+      delete payload.category_id;
 
       const updateResult = await this.productRepositoryService.update(
         id,

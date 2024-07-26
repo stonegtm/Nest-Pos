@@ -33,9 +33,15 @@ export class ProductRepositoryService {
       },
       relations: {
         files: true,
+        categoryConnections: {
+          category: true,
+        },
       },
     });
     return findOne;
+  }
+  async deleteConnectCategory(req) {
+    return await this.categoryKeepProductEntity.remove(req);
   }
   async saveProductKeepCategory(body: CategoryKeepProductEntity) {
     return this.categoryKeepProductEntity.save(body);
